@@ -25,8 +25,11 @@ cover: box2d
 cover: CXXFLAGS+=-coverage
 cover: all
 
-box2d:
+box2d: | libbuilddir
 	cd lib/build && cmake .. && make
+
+libbuilddir:
+	@mkdir -p lib/build
 
 $(TARGET): $(OBJECTS)
 	@echo "Compiling: $@"
