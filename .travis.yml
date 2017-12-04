@@ -3,11 +3,11 @@ language: c
 os: osx
 
 before_script:
-    - brew install box2d
+    - brew install sfml
 
 script: 
-    - make clean all
-    - ./demo
+    - make clean cover
+    - LD_PRELOAD=$(pwd)/lib/build/libBox2D.so ./demo
     - gcov build/main.cpp
 
 compiler: 
