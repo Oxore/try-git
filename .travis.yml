@@ -1,0 +1,17 @@
+
+language: c
+os: osx
+
+before_script:
+    - brew install box2d
+
+script: 
+    - make clean all
+    - ./demo
+    - gcov build/main.cpp
+
+compiler: 
+    - gcc
+      
+after_success:
+    - bash <(curl -s https://codecov.io/bash)

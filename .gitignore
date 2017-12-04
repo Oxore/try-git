@@ -1,0 +1,6 @@
+demo
+*.o
+*.swp
+*.gcov
+build
+tags
