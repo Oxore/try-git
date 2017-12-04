@@ -3,8 +3,7 @@ language: c++
 os: osx
 
 before_script:
-    - brew update
-    - brew install box2d
+    - brew cask install box2d
 
 script: 
     - make clean cover
