@@ -9,7 +9,6 @@ arch:
   packages:
     - cmake
     - sfml
-    - box2d
   script:
     - "make clean cover"
     - "LD_PRELOAD=$(pwd)/lib/build/libBox2D.so ./demo"
