@@ -1,4 +1,4 @@
-CC=g++
+CXX=g++
 CXXFLAGS+=-Wall
 CXXFLAGS+=-std=c++17
 CXXFLAGS+=-O0
