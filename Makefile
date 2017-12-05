@@ -33,7 +33,7 @@ libbuilddir:
 
 $(TARGET): $(OBJECTS)
 	@echo "Compiling: $@"
-	@$(CC) -o $@ $^ $(CXXFLAGS) $(LIBS)
+	@$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
 	@echo "Build successfull"
 
 $(OBJECTS): | $(BUILD)
@@ -43,7 +43,7 @@ $(BUILD):
 
 $(BUILD)/%.o: $(SRC)/%.cpp
 	@echo "Compiling: $@"
-	@$(CC) -c $(CXXFLAGS) $(LIBS) -o $@ $<
+	@$(CXX) -c $(CXXFLAGS) $(LIBS) -o $@ $<
 
 clean:
 	@rm -rfv $(TARGET) $(BUILD) *.gcov lib/build/*
