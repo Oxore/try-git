@@ -19,9 +19,9 @@ TARGET:=demo
 
 #======================================================================
 
+all: box2d
 all: $(TARGET)
 
-cover: box2d
 cover: CXXFLAGS+=-coverage
 cover: all
 
