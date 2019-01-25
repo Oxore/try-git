@@ -1,10 +1,10 @@
 sudo: required
 
-language: cpp
-
 compiler:
   - gcc
   - clang
+
+language: cpp
 
 arch:
   packages:
@@ -15,11 +15,11 @@ arch:
 
 matrix:
   include:
-    - os: linux
-      script:
-      - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
     - os: osx
       before_script:
         - brew install sfml
       script:
         - make
+
+script:
+- "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
