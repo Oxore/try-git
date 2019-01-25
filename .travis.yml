@@ -4,17 +4,14 @@ language: cpp
 
 compiler:
   - gcc
+  - clang
 
 arch:
   packages:
     - cmake
     - sfml
   script:
-    - "make clean cover"
-    - "LD_PRELOAD=$(pwd)/lib/build/libBox2D.so ./demo"
-    - "gcov build/main.cpp"
-  after_success:
-    - "bash <(curl -s https://codecov.io/bash)"
+    - make
 
 script:
   - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
