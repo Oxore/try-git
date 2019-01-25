@@ -6,12 +6,20 @@ compiler:
   - gcc
   - clang
 
-archarch:
+arch:
   packages:
     - cmake
     - sfml
   script:
     - make
 
-script:
-  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+matrix:
+  include:
+    - os: linux
+      script:
+      - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+    - os: osx
+      before_script:
+        - brew install sfml
+      script:
+        - make
