@@ -16,10 +16,13 @@ arch:
 matrix:
   include:
     - os: osx
-      language: cpp
-      compiler:
-        - gcc
-        - clang
+      compiler: gcc
+      before_script:
+        - brew install sfml
+      script:
+        - make
+    - os: osx
+      compiler: clang
       before_script:
         - brew install sfml
       script:
