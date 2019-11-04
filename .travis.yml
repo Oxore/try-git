@@ -9,6 +9,8 @@ language: cpp
 archlinux:
   packages:
     - cmake
+    - xorg
+    - openal
   script:
     - mkdir lib/build-SFML
     - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
@@ -34,8 +36,3 @@ matrix:
 
 script:
 - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
-
-addons:
-  artifacts:
-    paths:
-      - ./*
