@@ -1,13 +1,38 @@
+Q=@
 CXX=g++
 CXXFLAGS+=-Wall
 CXXFLAGS+=-std=c++17
 CXXFLAGS+=-O0
 CXXFLAGS+=-I$(INCLUDE)
-CXXFLAGS+=-L$$(pwd)/lib/build
-LIBS+=-lsfml-graphics
-LIBS+=-lsfml-window
-LIBS+=-lsfml-system
-LIBS+=-lBox2D
+CXXFLAGS+=$(EXTRA_CXXFLAGS)
+ifdef SFML_STATIC
+CXXFLAGS+=-DSFML_STATIC
+LDFLAGS+=-lsfml-graphics-s
+LDFLAGS+=-lsfml-window-s
+LDFLAGS+=-lsfml-system-s
+ifdef WINDOWS
+LDFLAGS+=-static
+LDFLAGS+=-static-libgcc
+LDFLAGS+=-static-libstdc++
+LDFLAGS+=-lopengl32
+LDFLAGS+=-lgdi32
+LDFLAGS+=-lwinmm
+LDFLAGS+=-mwindows
+else
+LDFLAGS+=-pthread
+LDFLAGS+=-lX11
+LDFLAGS+=-lXrandr
+LDFLAGS+=-ldl
+LDFLAGS+=-ludev
+endif
+else #SFML_STATIC
+LDFLAGS+=-lsfml-graphics
+LDFLAGS+=-lsfml-window
+LDFLAGS+=-lsfml-system
+endif #SFML_STATIC
+LDFLAGS+=-lBox2D
+LDFLAGS+=-L./lib/build-box2d
+LDFLAGS+=$(EXTRA_LDFLAGS)
 
 BUILD:=build
 SRC:=src
@@ -25,27 +50,30 @@ all: $(TARGET)
 cover: CXXFLAGS+=-coverage
 cover: all
 
-box2d: | libbuilddir
-	cd lib/build && cmake .. && make
+box2d: | lib/build-box2d
+	cd lib/build-box2d && cmake -DBUILD_SHARED_LIBS=OFF .. && $(MAKE)
 
-libbuilddir:
-	@mkdir -p lib/build
+lib/build-box2d:
+	$(Q)mkdir -p $@
 
 $(TARGET): $(OBJECTS)
 	@echo "Compiling: $@"
-	@$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
+	$(Q)$(CXX) -o $@ $^ $(LDFLAGS)
 	@echo "Build successfull"
 
 $(OBJECTS): | $(BUILD)
 
 $(BUILD):
-	@mkdir -p $(BUILD)
+	$(Q)mkdir -p $(BUILD)
 
 $(BUILD)/%.o: $(SRC)/%.cpp
 	@echo "Compiling: $@"
-	@$(CXX) -c $(CXXFLAGS) $(LIBS) -o $@ $<
+	$(Q)$(CXX) -c $(CXXFLAGS) -o $@ $<
 
 clean:
-	@rm -rfv $(TARGET) $(BUILD) *.gcov lib/build/*
+	$(Q)rm -rfv $(TARGET) $(BUILD) *.gcov
 
-.PHONY: all clean
+mrproper: clean
+	$(Q)rm -rfv lib/build/*
+
+.PHONY: all clean mrproper

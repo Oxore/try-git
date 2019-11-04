@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_STANDARD 11)
+option(BUILD_SHARED_LIBS "Build the shared library, otherwise the static" ON)
 file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "Box2D/Box2D/Box2D/*.cpp")
 include_directories(${CMAKE_SOURCE_DIR}/Box2D/Box2D)
-add_library(Box2D SHARED ${SOURCES})
+add_library(Box2D ${SOURCES})
 
 file(GLOB srcs RELATIVE ${CMAKE_SOURCE_DIR}/src/ "*.cpp")
 foreach(src ${srcs})

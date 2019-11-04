@@ -2,5 +2,5 @@ demo
 *.o
 *.swp
 *.gcov
-build
+build-box2d
 tags
