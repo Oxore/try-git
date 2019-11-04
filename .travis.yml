@@ -18,13 +18,13 @@ matrix:
     - os: osx
       compiler: gcc
       before_script:
-        - brew install sfml
+        - HOMEBREW_NO_AUTO_UPDATE=1 brew install sfml
       script:
         - make
     - os: osx
       compiler: clang
       before_script:
-        - brew install sfml
+        - HOMEBREW_NO_AUTO_UPDATE=1 brew install sfml
       script:
         - make
 
