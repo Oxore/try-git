@@ -11,6 +11,7 @@ archlinux:
     - cmake
     - xorg
     - openal
+    - libvorbis
   script:
     - mkdir lib/build-SFML
     - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
@@ -23,14 +24,14 @@ matrix:
       compiler: gcc
       script:
         - mkdir lib/build-SFML
-        - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
+        - cd lib/build-SFML; cmake -DBUILD_SHARED_LIBS=OFF ../SFML; cd ../..
         - make -C lib/build-SFML
         - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
     - os: osx
       compiler: clang
       script:
         - mkdir lib/build-SFML
-        - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
+        - cd lib/build-SFML; cmake -DBUILD_SHARED_LIBS=OFF ../SFML; cd ../..
         - make -C lib/build-SFML
         - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
 
