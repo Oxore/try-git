@@ -24,6 +24,7 @@ LDFLAGS+=-lX11
 LDFLAGS+=-lXrandr
 LDFLAGS+=-ldl
 LDFLAGS+=-ludev
+LDFLAGS+=-lGL
 endif
 else #SFML_STATIC
 LDFLAGS+=-lsfml-graphics

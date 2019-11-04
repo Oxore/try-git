@@ -3,4 +3,5 @@ demo
 *.swp
 *.gcov
 build-box2d
+build-SFML
 tags

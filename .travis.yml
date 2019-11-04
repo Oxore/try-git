@@ -9,24 +9,28 @@ language: cpp
 archlinux:
   packages:
     - cmake
-    - sfml
   script:
-    - make
+    - mkdir lib/build-SFML
+    - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
+    - make -C lib/build-SFML
+    - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
 
 matrix:
   include:
     - os: osx
       compiler: gcc
-      before_script:
-        - HOMEBREW_NO_AUTO_UPDATE=1 brew install sfml
       script:
-        - make
+        - mkdir lib/build-SFML
+        - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
+        - make -C lib/build-SFML
+        - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
     - os: osx
       compiler: clang
-      before_script:
-        - HOMEBREW_NO_AUTO_UPDATE=1 brew install sfml
       script:
-        - make
+        - mkdir lib/build-SFML
+        - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
+        - make -C lib/build-SFML
+        - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
 
 script:
 - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
