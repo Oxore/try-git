@@ -10,7 +10,7 @@ CXXFLAGS+=-DSFML_STATIC
 LDFLAGS+=-lsfml-graphics-s
 LDFLAGS+=-lsfml-window-s
 LDFLAGS+=-lsfml-system-s
-ifdef WINDOWS
+ifeq ($(OS),Windows_NT)
 LDFLAGS+=-static
 LDFLAGS+=-static-libgcc
 LDFLAGS+=-static-libstdc++
@@ -19,6 +19,8 @@ LDFLAGS+=-lgdi32
 LDFLAGS+=-lwinmm
 LDFLAGS+=-mwindows
 else
+UNAME_S:=$(shell uname -s)
+ifeq ($(UNAME_S),Linux)
 LDFLAGS+=-pthread
 LDFLAGS+=-lX11
 LDFLAGS+=-lXrandr
@@ -26,11 +28,18 @@ LDFLAGS+=-ldl
 LDFLAGS+=-ludev
 LDFLAGS+=-lGL
 endif
-else #SFML_STATIC
+ifeq ($(UNAME_S),Darwin)
+LDFLAGS+=-framework OpenGL
+LDFLAGS+=-framework AppKit
+LDFLAGS+=-framework IOKit
+LDFLAGS+=-framework Carbon
+endif
+endif # ($(OS),Windows_NT)
+else # SFML_STATIC
 LDFLAGS+=-lsfml-graphics
 LDFLAGS+=-lsfml-window
 LDFLAGS+=-lsfml-system
-endif #SFML_STATIC
+endif # SFML_STATIC
 LDFLAGS+=-lBox2D
 LDFLAGS+=-L./lib/build-box2d
 LDFLAGS+=$(EXTRA_LDFLAGS)

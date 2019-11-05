@@ -12,6 +12,7 @@ archlinux:
     - xorg
     - openal
     - libvorbis
+    - flac
   script:
     - mkdir lib/build-SFML
     - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
