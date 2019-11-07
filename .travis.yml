@@ -15,9 +15,15 @@ archlinux:
     - flac
   script:
     - mkdir lib/build-SFML
-    - cmake -Blib/build-SFML -DBUILD_SHARED_LIBS=OFF lib/SFML
+    - cmake
+        -Blib/build-SFML
+        -DBUILD_SHARED_LIBS=OFF
+        lib/SFML
     - make -C lib/build-SFML
-    - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
+    - make
+        SFML_STATIC=y
+        EXTRA_LDFLAGS="-L./lib/build-SFML/lib'
+        EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
 
 jobs:
   include:
@@ -25,7 +31,9 @@ jobs:
       compiler: gcc
       script:
         - mkdir lib/build-SFML
-        - cd lib/build-SFML; cmake -DBUILD_SHARED_LIBS=OFF ../SFML; cd ../..
+        - pushd lib/build-SFML
+            && cmake -DBUILD_SHARED_LIBS=OFF ../SFML
+            && popd
         - make -C lib/build-SFML
         - make \
             SFML_STATIC=y \
@@ -36,9 +44,15 @@ jobs:
       compiler: clang
       script:
         - mkdir lib/build-SFML
-        - cd lib/build-SFML; cmake -DBUILD_SHARED_LIBS=OFF ../SFML; cd ../..
+        - pushd lib/build-SFML
+            && cmake -DBUILD_SHARED_LIBS=OFF ../SFML
+            && popd
         - make -C lib/build-SFML
-        - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
+        - make
+            SFML_STATIC=y
+            EXTRA_LDFLAGS=-L./lib/build-SFML/lib
+            EXTRA_CXXFLAGS="-isystem
+            ./lib/SFML/include"
 
 script:
 - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
