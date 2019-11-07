@@ -1,4 +1,4 @@
-sudo: required
+os: linux
 
 compiler:
   - gcc
@@ -19,7 +19,7 @@ archlinux:
     - make -C lib/build-SFML
     - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
 
-matrix:
+jobs:
   include:
     - os: osx
       compiler: gcc
@@ -27,7 +27,11 @@ matrix:
         - mkdir lib/build-SFML
         - cd lib/build-SFML; cmake -DBUILD_SHARED_LIBS=OFF ../SFML; cd ../..
         - make -C lib/build-SFML
-        - make SFML_STATIC=y EXTRA_LDFLAGS=-L./lib/build-SFML/lib EXTRA_CXXFLAGS="-isystem ./lib/SFML/include"
+        - make \
+            SFML_STATIC=y \
+            EXTRA_LDFLAGS="-L./lib/build-SFML/lib" \
+            EXTRA_CXXFLAGS="-isystem ./lib/SFML/include" \
+            Q=
     - os: osx
       compiler: clang
       script:
