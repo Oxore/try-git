@@ -1,10 +1,5 @@
 version: 1.0.{build}
+image: Visual Studio 2017
 build_script:
-- sh: >-
-    mkdir lib/build-SFML
-
-    pushd lib/build-SFML && cmake -DBUILD_SHARED_LIBS=OFF ../SFML && popd
-
-    make -C lib/build-SFML
-
-    make SFML_STATIC=y EXTRA_LDFLAGS="-L./lib/build-SFML/lib" EXTRA_CXXFLAGS="-isystem ./lib/SFML/include" Q=
+- cmd: C:\cygwin64\bin\bash -c 'bash appveyor/appveyor.bash'
+test: off
