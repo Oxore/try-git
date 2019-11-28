@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
+project(Box2D)
 set(CMAKE_CXX_STANDARD 11)
 option(BUILD_SHARED_LIBS "Build the shared library, otherwise the static" ON)
 file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "Box2D/Box2D/Box2D/*.cpp")
