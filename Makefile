@@ -61,7 +61,7 @@ cover: CXXFLAGS+=-coverage
 cover: all
 
 box2d: | lib/build-box2d
-	cd lib/build-box2d && cmake -DBUILD_SHARED_LIBS=OFF .. && $(MAKE)
+	cd lib/build-box2d && cmake -G 'Unix Makefiles' -DBUILD_SHARED_LIBS=OFF .. && $(MAKE)
 
 lib/build-box2d:
 	$(Q)mkdir -p $@
