@@ -1,5 +1,10 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 build_script:
-- cmd: C:\cygwin64\bin\bash -c 'bash appveyor/appveyor.bash'
+- cmd: >-
+
+  git submodule update --init --recursive
+
+  C:\cygwin64\bin\bash -c 'bash appveyor/appveyor.bash'
+
 test: off
