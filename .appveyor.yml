@@ -1,0 +1,36 @@
+version: 0.1.0-{build}
+image: Visual Studio 2015
+
+environment:
+  matrix:
+  - COMPILER: msys2
+    PLATFORM: x64
+    MSYS2_ARCH: x86_64
+    MSYS2_DIR: msys64
+    MSYSTEM: MINGW64
+
+build_script:
+- cmd: >-
+    git submodule update --init --recursive
+
+    SET "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
+
+    bash -lc "pacman -S --needed --noconfirm pacman-mirrors"
+
+    bash -lc 'pacman -Syu --noconfirm make gcc'
+
+    bash -lc 'pwd'
+
+    bash -c 'pwd'
+
+    bash scripts/appveyor-build-static.bash
+
+    ls -lash
+
+    7z a demo.zip demo.exe res
+
+test: off
+
+artifacts:
+- path: demo.zip
+  name: demo-app
