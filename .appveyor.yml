@@ -27,10 +27,10 @@ build_script:
 
     ls -lash
 
-    7z a demo.zip demo.exe res
+    7z a demo-%APPVEYOR_REPO_COMMIT%.zip demo.exe res
 
 test: off
 
 artifacts:
-- path: demo.zip
-  name: demo-app
+- path: demo-%APPVEYOR_REPO_COMMIT%.zip
+  name: demo-app-%APPVEYOR_REPO_COMMIT%
