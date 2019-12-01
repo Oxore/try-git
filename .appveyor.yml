@@ -13,7 +13,7 @@ build_script:
 - cmd: >-
     git submodule update --init --recursive
 
-    if %APPVEYOR_REPO_TAG%==true (set ARTIFACT_NAME=%APPVEYOR_REPO_TAG%) else (set ARTIFACT_NAME=%APPVEYOR_REPO_BRANCH%-%APPVEYOR_REPO_COMMIT%)
+    if %APPVEYOR_REPO_TAG%==true (set ARTIFACT_NAME=%APPVEYOR_REPO_TAG_NAME%) else (set ARTIFACT_NAME=%APPVEYOR_REPO_BRANCH%-%APPVEYOR_REPO_COMMIT%)
 
     set "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
 
