@@ -2,8 +2,6 @@
 
 Compile with:
 
-    g++ main.cpp -o main -lsfml-graphics -lsfml-window -lsfml-system -lBox2D
-
-or
-
     make
+
+Or see `.appveyor.yml`, `.travis-ci.yml` files.
