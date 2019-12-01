@@ -13,7 +13,7 @@ build_script:
 - cmd: >-
     git submodule update --init --recursive
 
-    if %APPVEYOR_REPO_TAG%==true (set ARTIFACT_NAME=%APPVEYOR_REPO_TAG_NAME%) else (set ARTIFACT_NAME=%APPVEYOR_REPO_BRANCH%-%APPVEYOR_REPO_COMMIT%)
+    if %APPVEYOR_REPO_TAG%==true (set ARTIFACT_NAME=try-git-%APPVEYOR_REPO_TAG_NAME%) else (set ARTIFACT_NAME=try-git-%APPVEYOR_REPO_BRANCH%-%APPVEYOR_REPO_COMMIT%)
 
     set "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
 
@@ -36,3 +36,13 @@ test: off
 artifacts:
 - path: '*.zip'
   name: 'Demo App'
+
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: +4Z4E27AboWJ0UlwIrUgzmcwnrgtycCJO444tl+8Qx1/3rXBrNUwOuJZT0OIVVpR
+  artifact: /.*\.zip/
+  draft: true
+  on:
+    branch: master
+    APPVEYOR_REPO_TAG: true
