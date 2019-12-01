@@ -13,6 +13,8 @@ build_script:
 - cmd: >-
     git submodule update --init --recursive
 
+    if %APPVEYOR_REPO_TAG%==true (set ARTIFACT_NAME=%APPVEYOR_REPO_TAG%) else (set ARTIFACT_NAME=%APPVEYOR_REPO_BRANCH%-%APPVEYOR_REPO_COMMIT%)
+
     set "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
 
     bash -lc "pacman -S --needed --noconfirm pacman-mirrors"
@@ -26,12 +28,6 @@ build_script:
     bash scripts/appveyor-build-static.bash
 
     ls -lash
-
-    if %APPVEYOR_REPO_TAG%==true (
-      set ARTIFACT_NAME=%APPVEYOR_REPO_TAG%
-    ) else (
-      set ARTIFACT_NAME=%APPVEYOR_REPO_BRANCH%-%APPVEYOR_REPO_COMMIT%
-    )
 
     7z a %ARTIFACT_NAME%.zip demo.exe res
 
